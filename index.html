@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Калькулятор БЖУ + FDC</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Калькулятор БЖУ + рекомендации по продуктам</h1>
+  <form id="form">
+    <label>Пол:
+      <select id="gender">
+        <option value="male">Мужчина</option>
+        <option value="female">Женщина</option>
+      </select>
+    </label><br>
+    <label>Возраст: <input type="number" id="age"></label><br>
+    <label>Рост (см): <input type="number" id="height"></label><br>
+    <label>Вес (кг): <input type="number" id="weight"></label><br><br>
+    <button type="submit">Рассчитать</button>
+  </form>
+
+  <div id="results"></div>
+  <div id="products"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
