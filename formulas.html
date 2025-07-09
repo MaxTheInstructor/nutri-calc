@@ -1,28 +1,56 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Формулы расчёта</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Формулы расчёта суточной потребности</h1>
+  <nav>
+    <a href="index.html">Главная</a> |
+    <a href="formulas.html">Формулы</a> |
+    <a href="food-data.html">Рацион</a>
+  </nav>
+  <hr>
 
-  <h2>1. Формула Миффлина — Сан Жеора</h2>
-  <pre><code>
-let bmr = gender === "male"
-  ? 10 * weight + 6.25 * height - 5 * age + 5
-  : 10 * weight + 6.25 * height - 5 * age - 161;
-  </code></pre>
-  <p><strong>Источник:</strong> Mifflin MD, St Jeor ST. Am J Clin Nutr. 1990</p>
+  <h1>Формулы расчёта</h1>
 
-  <h2>2. Расчёт суточной калорийности</h2>
-  <pre><code>
-const calories = bmr * activity;
-const proteinTarget = (calories * 0.30) / 4;
-const fatTarget = (calories * 0.30) / 9;
-const carbTarget = (calories * 0.40) / 4;
-  </code></pre>
+  <section>
+    <h2>1. Основной обмен (BMR)</h2>
+    <p>Используется формула Миффлина — Сан Жеора:</p>
+    <pre><code>
+Мужчины: BMR = 10 × вес (кг) + 6.25 × рост (см) – 5 × возраст + 5  
+Женщины: BMR = 10 × вес (кг) + 6.25 × рост (см) – 5 × возраст – 161
+    </code></pre>
+    <p><strong>Источник:</strong> Mifflin MD et al., 1990, "A new predictive equation for resting energy expenditure in healthy individuals".</p>
+  </section>
+
+  <section>
+    <h2>2. Уровень физической активности</h2>
+    <p>BMR умножается на коэффициент активности (PAL):</p>
+    <ul>
+      <li>1.2 — сидячий образ жизни</li>
+      <li>1.375 — лёгкая активность</li>
+      <li>1.55 — умеренная активность</li>
+      <li>1.725 — высокая активность</li>
+      <li>1.9 — очень высокая активность</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>3. Распределение по макронутриентам (БЖУ)</h2>
+    <p>Пример: 30% белки, 30% жиры, 40% углеводы:</p>
+    <ul>
+      <li>1 г белка = 4 ккал</li>
+      <li>1 г углеводов = 4 ккал</li>
+      <li>1 г жира = 9 ккал</li>
+    </ul>
+  </section>
+
+  <footer>
+    <hr>
+    <p>© Максим | Проект нутри-калькулятора</p>
+  </footer>
 </body>
 </html>
