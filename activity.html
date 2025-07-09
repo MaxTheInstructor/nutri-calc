@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Калькулятор физической активности</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    nav a { margin-right: 15px; text-decoration: none; color: darkblue; }
+    h2 { margin-top: 30px; }
+    canvas { max-width: 400px; margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Главная</a>
+    <a href="formulas.html">Формулы</a>
+    <a href="food-data.html">Продукты</a>
+    <a href="activity.html">Физическая активность</a>
+  </nav>
+
+  <h1>Калькулятор уровня физической активности</h1>
+
+  <h2>Будние дни</h2>
+  <label>Рабочих дней в неделю: <input type="number" id="workdays" value="5" min="0" max="7"></label><br><br>
+  <label>Сидячая работа (ч): <input type="number" id="work_sit" value="6"></label><br>
+  <label>Стоячая работа (ч): <input type="number" id="work_stand" value="2"></label><br>
+  <label>Транспорт (ч): <input type="number" id="commute" value="1"></label><br>
+  <label>Ходьба (ч): <input type="number" id="walk" value="1"></label><br>
+  <label>Домашние дела (ч): <input type="number" id="home" value="2"></label><br>
+  <label>Пассивный отдых (ч): <input type="number" id="rest" value="2"></label><br>
+  <label>Сон (ч): <input type="number" id="sleep" value="8"></label><br>
+
+  <h2>Выходные дни</h2>
+  <label>Выходных дней в неделю: <input type="number" id="weekends" value="2" min="0" max="7"></label><br><br>
+  <label>Сон (ч): <input type="number" id="w_sleep" value="9"></label><br>
+  <label>Малоподвижная активность (ч): <input type="number" id="w_passive" value="6"></label><br>
+  <label>Умеренная активность (ч): <input type="number" id="w_moderate" value="4"></label><br>
+  <label>Высокая активность (ч): <input type="number" id="w_high" value="3"></label><br>
+
+  <br>
+  <button onclick="generateCharts()">Показать диаграммы</button>
+
+  <h2>Диаграмма: Будний день</h2>
+  <canvas id="weekdayChart"></canvas>
+
+  <h2>Диаграмма: Выходной день</h2>
+  <canvas id="weekendChart"></canvas>
+
+  <script>
+    function generateCharts() {
+      const workData = [
+        { label: "Сидячая работа", hours: +document.getElementById("work_sit").value },
+        { label: "Стоячая работа", hours: +document.getElementById("work_stand").value },
+        { label: "Транспорт", hours: +document.getElementById("commute").value },
+        { label: "Ходьба", hours: +document.getElementById("walk").value },
+        { label: "Домашние дела", hours: +document.getElementById("home").value },
+        { label: "Пассивный отдых", hours: +document.getElementById("rest").value },
+        { label: "Сон", hours: +document.getElementById("sleep").value }
+      ];
+
+      const weekendData = [
+        { label: "Сон", hours: +document.getElementById("w_sleep").value },
+        { label: "Малоподвижная активность", hours: +document.getElementById("w_passive").value },
+        { label: "Умеренная активность", hours: +document.getElementById("w_moderate").value },
+        { label: "Высокая активность", hours: +document.getElementById("w_high").value }
+      ];
+
+      drawPie("weekdayChart", workData, "Будний день");
+      drawPie("weekendChart", weekendData, "Выходной день");
+    }
+
+    function drawPie(canvasId, data, label) {
+      const ctx = document.getElementById(canvasId).getContext("2d");
+      if (window[canvasId]) window[canvasId].destroy(); // удаляем предыдущую диаграмму
+      window[canvasId] = new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: data.map(d => d.label),
+          datasets: [{
+            data: data.map(d => d.hours),
+            backgroundColor: [
+              "#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477"
+            ]
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: label
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
