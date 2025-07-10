@@ -51,57 +51,67 @@ form.addEventListener("submit", async (e) => {
 });
 
 async function fetchAndDisplayRecommendedFoods() {
+  const nutrientList = [
+    { name: "Белок", english: "protein", dailyNeed: 50 },
+    { name: "Жиры", english: "fat", dailyNeed: 60 },
+    { name: "Углеводы", english: "carbohydrate", dailyNeed: 210 },
+    { name: "Железо", english: "iron", dailyNeed: 18 },
+    { name: "Витамин D", english: "vitamin d", dailyNeed: 15 },
+    { name: "Альфа-линоленовая кислота (ALA)", english: "alpha-linolenic acid", dailyNeed: 1.1 },
+    { name: "Линолевая кислота (LA)", english: "linoleic acid", dailyNeed: 11 },
+    { name: "Эйкозапентаеновая кислота (EPA)", english: "eicosapentaenoic acid", dailyNeed: 0.25 },
+    { name: "Докозагексаеновая кислота (DHA)", english: "docosahexaenoic acid", dailyNeed: 0.25 }
+  ];
+
   productsDiv.innerHTML = "<p>Загрузка продуктов...</p>";
   let html = "<h3>Рекомендованные продукты по приоритетным нутриентам:</h3><ul>";
 
-  for (const nutrient in nutrientNeeds) {
-    const label = nutrientNeeds[nutrient].label;
-    const dailyNeed = nutrientNeeds[nutrient].daily;
-    const unit = nutrientNeeds[nutrient].unit;
-
+  for (const nutrient of nutrientList) {
     try {
-      // 🔍 Поиск одного продукта по нутриенту
-      const searchUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(nutrient)}&pageSize=1&api_key=${API_KEY}`;
+      const searchUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(nutrient.english)}&pageSize=3&api_key=${API_KEY}`;
       const searchResponse = await fetch(searchUrl);
       const searchData = await searchResponse.json();
 
       if (!searchData.foods || searchData.foods.length === 0) {
-        html += `<li><strong>${label}</strong>: продукт не найден</li>`;
+        html += `<li><strong>${nutrient.name}</strong>: нет продуктов</li>`;
         continue;
       }
 
-      const food = searchData.foods[0];
-      const fdcId = food.fdcId;
+      html += `<li><strong>${nutrient.name}</strong>:<ul>`;
 
-      // 📦 Получение состава продукта
-      const detailUrl = `https://api.nal.usda.gov/fdc/v1/food/${fdcId}?api_key=${API_KEY}`;
-      const detailResponse = await fetch(detailUrl);
-      const foodDetails = await detailResponse.json();
+      for (const food of searchData.foods) {
+        try {
+          const detailUrl = `https://api.nal.usda.gov/fdc/v1/food/${food.fdcId}?api_key=${API_KEY}`;
+          const detailResponse = await fetch(detailUrl);
+          const foodDetails = await detailResponse.json();
 
-      const foundNutrient = foodDetails.foodNutrients.find(n =>
-        n.nutrientName.toLowerCase().includes(nutrient.toLowerCase())
-      );
+          const foundNutrient = (foodDetails.foodNutrients || []).find(n =>
+            n.nutrientName && n.nutrientName.toLowerCase().includes(nutrient.english.toLowerCase())
+          );
 
-      if (!foundNutrient || !foundNutrient.value) {
-        html += `<li><strong>${label}</strong>: не найдено содержание в продукте (${food.description})</li>`;
-        continue;
+          if (!foundNutrient) {
+            html += `<li>${food.description} — нет данных о нутриенте</li>`;
+            continue;
+          }
+
+          const amountPer100g = foundNutrient.amount;
+          if (!amountPer100g) {
+            html += `<li>${food.description} — нет количества нутриента</li>`;
+            continue;
+          }
+
+          const requiredGrams = (nutrient.dailyNeed / amountPer100g) * 100;
+          html += `<li>${food.description} — ${requiredGrams.toFixed(0)} г для суточной нормы</li>`;
+        } catch (innerError) {
+          console.error(`❌ Ошибка при получении состава для ${food.description}:`, innerError);
+          html += `<li>${food.description} — ошибка при загрузке состава</li>`;
+        }
       }
 
-      const valuePer100g = foundNutrient.value;
-      const amountNeeded = (dailyNeed / valuePer100g) * 100;
-
-      html += `
-        <li><strong>${label}</strong>:
-          <ul>
-            <li>Продукт: <em>${food.description}</em></li>
-            <li>Содержание в 100 г: ${valuePer100g} ${unit}</li>
-            <li>Необходимо: <strong>${amountNeeded.toFixed(1)} г</strong></li>
-          </ul>
-        </li>
-      `;
-    } catch (error) {
-      console.error(`❌ Ошибка для ${label}:`, error);
-      html += `<li><strong>${label}</strong>: ошибка при загрузке</li>`;
+      html += `</ul></li>`;
+    } catch (outerError) {
+      console.error(`❌ Ошибка для ${nutrient.name}:`, outerError);
+      html += `<li><strong>${nutrient.name}</strong>: ошибка загрузки</li>`;
     }
   }
 
