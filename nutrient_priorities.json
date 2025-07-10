@@ -4,7 +4,7 @@
     "category": "macronutrient",
     "unit": "л",
     "average_daily_need": 2.5,
-    "time_to_deficiency_days": 2,
+    "deficiency_days": 2,
     "source": "WHO"
   },
   {
@@ -12,7 +12,7 @@
     "category": "macronutrient",
     "unit": "г",
     "average_daily_need": 60,
-    "time_to_deficiency_days": 14,
+    "deficiency_days": 14,
     "source": "WHO/FAO/UNU"
   },
   {
@@ -20,7 +20,7 @@
     "category": "macronutrient",
     "unit": "г",
     "average_daily_need": 70,
-    "time_to_deficiency_days": 20,
+    "deficiency_days": 20,
     "source": "WHO/FAO"
   },
   {
@@ -28,7 +28,7 @@
     "category": "macronutrient",
     "unit": "г",
     "average_daily_need": 250,
-    "time_to_deficiency_days": 30,
+    "deficiency_days": 30,
     "source": "WHO/FAO"
   },
   {
@@ -36,7 +36,7 @@
     "category": "macronutrient",
     "unit": "г",
     "average_daily_need": 25,
-    "time_to_deficiency_days": 15,
+    "deficiency_days": 15,
     "source": "EFSA"
   },
   {
@@ -45,7 +45,7 @@
     "subtype": "macroelement",
     "unit": "мг",
     "average_daily_need": 1000,
-    "time_to_deficiency_days": 60,
+    "deficiency_days": 60,
     "source": "NASEM"
   },
   {
@@ -54,7 +54,7 @@
     "subtype": "macroelement",
     "unit": "мг",
     "average_daily_need": 3500,
-    "time_to_deficiency_days": 10,
+    "deficiency_days": 10,
     "source": "NASEM"
   },
   {
@@ -63,7 +63,7 @@
     "subtype": "microelement",
     "unit": "мг",
     "average_daily_need": 18,
-    "time_to_deficiency_days": 45,
+    "deficiency_days": 45,
     "source": "NASEM"
   },
   {
@@ -72,7 +72,7 @@
     "subtype": "macroelement",
     "unit": "мг",
     "average_daily_need": 400,
-    "time_to_deficiency_days": 30,
+    "deficiency_days": 30,
     "source": "NASEM"
   },
   {
@@ -80,7 +80,7 @@
     "category": "amino acid",
     "unit": "мг/кг массы тела",
     "average_daily_need": 30,
-    "time_to_deficiency_days": 10,
+    "deficiency_days": 10,
     "source": "WHO/FAO/UNU (2007)"
   },
   {
@@ -88,7 +88,7 @@
     "category": "amino acid",
     "unit": "мг/кг массы тела",
     "average_daily_need": 15,
-    "time_to_deficiency_days": 12,
+    "deficiency_days": 12,
     "source": "WHO/FAO/UNU (2007)"
   },
   {
@@ -96,7 +96,7 @@
     "category": "fatty acid",
     "unit": "г",
     "average_daily_need": 1.1,
-    "time_to_deficiency_days": 20,
+    "deficiency_days": 20,
     "source": "WHO/FAO (2010)"
   },
   {
@@ -104,7 +104,7 @@
     "category": "fatty acid",
     "unit": "г",
     "average_daily_need": 11,
-    "time_to_deficiency_days": 20,
+    "deficiency_days": 20,
     "source": "WHO/FAO (2010)"
   },
   {
@@ -113,7 +113,7 @@
     "subtype": "водорастворимый",
     "unit": "мг",
     "average_daily_need": 90,
-    "time_to_deficiency_days": 30,
+    "deficiency_days": 30,
     "source": "NASEM"
   },
   {
@@ -122,7 +122,7 @@
     "subtype": "жирорастворимый",
     "unit": "мкг",
     "average_daily_need": 15,
-    "time_to_deficiency_days": 90,
+    "deficiency_days": 90,
     "source": "NASEM"
   },
   {
@@ -130,7 +130,7 @@
     "category": "other",
     "unit": "мг",
     "average_daily_need": 425,
-    "time_to_deficiency_days": 60,
+    "deficiency_days": 60,
     "source": "NASEM"
   }
 ]
