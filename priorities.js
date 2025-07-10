@@ -22,7 +22,7 @@ async function displayPriorities() {
     row.innerHTML = `
       <td>${nutrient.name}</td>
       <td>${nutrient.category}</td>
-      <td>${nutrient.depletion_time}</td>
+      <td>${nutrient.time_to_deficiency_days}</td>
       <td>${nutrient.priority}</td>
     `;
     table.appendChild(row);

@@ -1,50 +1,136 @@
 [
   {
     "name": "Вода",
-    "category": "Макронутриенты",
-    "significance_hours": 72,
-    "reason": "Дефицит воды приводит к быстрой дегидратации, нарушению терморегуляции, потере работоспособности."
+    "category": "macronutrient",
+    "unit": "л",
+    "average_daily_need": 2.5,
+    "time_to_deficiency_days": 2,
+    "source": "WHO"
   },
   {
-    "name": "Незаменимые аминокислоты",
-    "category": "Белки / Аминокислоты",
-    "significance_hours": 96,
-    "reason": "Дефицит ведёт к быстрой потере мышечной массы и снижению иммунной функции."
+    "name": "Белки",
+    "category": "macronutrient",
+    "unit": "г",
+    "average_daily_need": 60,
+    "time_to_deficiency_days": 14,
+    "source": "WHO/FAO/UNU"
   },
   {
-    "name": "Энергия (углеводы + жиры)",
-    "category": "Энергия",
-    "significance_hours": 120,
-    "reason": "Дефицит энергии снижает выносливость, ментальную активность и метаболизм."
+    "name": "Жиры",
+    "category": "macronutrient",
+    "unit": "г",
+    "average_daily_need": 70,
+    "time_to_deficiency_days": 20,
+    "source": "WHO/FAO"
   },
   {
-    "name": "Жирные кислоты (незаменимые)",
-    "category": "Жиры / Жирные кислоты",
-    "significance_hours": 336,
-    "reason": "Недостаток может нарушить гормональный баланс и работу мозга, но развивается медленно."
+    "name": "Углеводы",
+    "category": "macronutrient",
+    "unit": "г",
+    "average_daily_need": 250,
+    "time_to_deficiency_days": 30,
+    "source": "WHO/FAO"
   },
   {
-    "name": "Витамины B-группы",
-    "category": "Витамины",
-    "significance_hours": 720,
-    "reason": "Участвуют в метаболизме, но накоплены в организме и расходуются постепенно."
+    "name": "Клетчатка",
+    "category": "macronutrient",
+    "unit": "г",
+    "average_daily_need": 25,
+    "time_to_deficiency_days": 15,
+    "source": "EFSA"
   },
   {
-    "name": "Минералы (K, Na, Mg)",
-    "category": "Микро- и макроэлементы",
-    "significance_hours": 120,
-    "reason": "Нарушения баланса электролитов быстро отражаются на работе сердца и мышц."
+    "name": "Кальций",
+    "category": "mineral",
+    "subtype": "macroelement",
+    "unit": "мг",
+    "average_daily_need": 1000,
+    "time_to_deficiency_days": 60,
+    "source": "NASEM"
   },
   {
-    "name": "Пищевые волокна",
-    "category": "Прочее",
-    "significance_hours": 168,
-    "reason": "Нарушают пищеварение и микробиоту, но эффект развивается не сразу."
+    "name": "Калий",
+    "category": "mineral",
+    "subtype": "macroelement",
+    "unit": "мг",
+    "average_daily_need": 3500,
+    "time_to_deficiency_days": 10,
+    "source": "NASEM"
   },
   {
-    "name": "Холин, карнитин и др.",
-    "category": "Витаминоподобные вещества",
-    "significance_hours": 168,
-    "reason": "Играют важную роль, но эффект от дефицита отсрочен."
+    "name": "Железо",
+    "category": "mineral",
+    "subtype": "microelement",
+    "unit": "мг",
+    "average_daily_need": 18,
+    "time_to_deficiency_days": 45,
+    "source": "NASEM"
+  },
+  {
+    "name": "Магний",
+    "category": "mineral",
+    "subtype": "macroelement",
+    "unit": "мг",
+    "average_daily_need": 400,
+    "time_to_deficiency_days": 30,
+    "source": "NASEM"
+  },
+  {
+    "name": "Лизин",
+    "category": "amino acid",
+    "unit": "мг/кг массы тела",
+    "average_daily_need": 30,
+    "time_to_deficiency_days": 10,
+    "source": "WHO/FAO/UNU (2007)"
+  },
+  {
+    "name": "Метионин+Цистеин",
+    "category": "amino acid",
+    "unit": "мг/кг массы тела",
+    "average_daily_need": 15,
+    "time_to_deficiency_days": 12,
+    "source": "WHO/FAO/UNU (2007)"
+  },
+  {
+    "name": "Альфа-линоленовая кислота (ALA)",
+    "category": "fatty acid",
+    "unit": "г",
+    "average_daily_need": 1.1,
+    "time_to_deficiency_days": 20,
+    "source": "WHO/FAO (2010)"
+  },
+  {
+    "name": "Линолевая кислота (LA)",
+    "category": "fatty acid",
+    "unit": "г",
+    "average_daily_need": 11,
+    "time_to_deficiency_days": 20,
+    "source": "WHO/FAO (2010)"
+  },
+  {
+    "name": "Витамин C",
+    "category": "vitamin",
+    "subtype": "водорастворимый",
+    "unit": "мг",
+    "average_daily_need": 90,
+    "time_to_deficiency_days": 30,
+    "source": "NASEM"
+  },
+  {
+    "name": "Витамин D",
+    "category": "vitamin",
+    "subtype": "жирорастворимый",
+    "unit": "мкг",
+    "average_daily_need": 15,
+    "time_to_deficiency_days": 90,
+    "source": "NASEM"
+  },
+  {
+    "name": "Холин",
+    "category": "other",
+    "unit": "мг",
+    "average_daily_need": 425,
+    "time_to_deficiency_days": 60,
+    "source": "NASEM"
   }
 ]
