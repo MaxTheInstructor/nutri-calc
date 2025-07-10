@@ -52,7 +52,7 @@ fetch('nutrient_needs.json')
     });
 
     resultsDiv.innerHTML += `
-      <h3>Потребности в нутриентах 
+      <h3>Минимальные потребности в нутриентах 
         <span style="font-weight: normal; font-size: 0.9em;">
           (по WHO/FAO/UNU (2007), WHO/FAO (2010), US DRI (NASEM))
         </span>
