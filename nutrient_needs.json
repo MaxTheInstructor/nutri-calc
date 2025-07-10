@@ -1,0 +1,99 @@
+[
+  {
+    "name": "Белки",
+    "category": "macronutrient",
+    "unit": "г",
+    "base_value": 0.8,
+    "multiplier_type": "weight"
+  },
+  {
+    "name": "Жиры",
+    "category": "macronutrient",
+    "unit": "г",
+    "base_value": 1.0,
+    "multiplier_type": "weight"
+  },
+  {
+    "name": "Углеводы",
+    "category": "macronutrient",
+    "unit": "г",
+    "base_value": 3.5,
+    "multiplier_type": "weight"
+  },
+
+  {
+    "name": "Лизин",
+    "category": "amino acid",
+    "unit": "мг/кг",
+    "base_value": 30,
+    "multiplier_type": "weight"
+  },
+  {
+    "name": "Метионин+Цистеин",
+    "category": "amino acid",
+    "unit": "мг/кг",
+    "base_value": 15,
+    "multiplier_type": "weight"
+  },
+
+  {
+    "name": "Линолевая кислота (LA)",
+    "category": "fatty acid",
+    "unit": "г",
+    "base_value": 11,
+    "multiplier_type": "none"
+  },
+  {
+    "name": "Альфа-линоленовая кислота (ALA)",
+    "category": "fatty acid",
+    "unit": "г",
+    "base_value": 1.1,
+    "multiplier_type": "none"
+  },
+
+  {
+    "name": "Витамин C",
+    "category": "vitamin",
+    "unit": "мг",
+    "base_values": {
+      "male": { "19-50": 90, "51+": 90 },
+      "female": { "19-50": 75, "51+": 75 }
+    },
+    "multiplier_type": "age"
+  },
+  {
+    "name": "Витамин D",
+    "category": "vitamin",
+    "unit": "мкг",
+    "base_values": {
+      "male": { "19-50": 15, "51+": 20 },
+      "female": { "19-50": 15, "51+": 20 }
+    },
+    "multiplier_type": "age"
+  },
+
+  {
+    "name": "Кальций",
+    "category": "mineral",
+    "unit": "мг",
+    "base_value": 1000,
+    "multiplier_type": "none"
+  },
+  {
+    "name": "Железо",
+    "category": "mineral",
+    "unit": "мг",
+    "base_values": {
+      "male": { "19-50": 8, "51+": 8 },
+      "female": { "19-50": 18, "51+": 8 }
+    },
+    "multiplier_type": "age"
+  },
+  {
+    "name": "Магний",
+    "category": "mineral",
+    "unit": "мг",
+    "base_value": 400,
+    "multiplier_type": "none"
+  }
+]

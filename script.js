@@ -27,6 +27,42 @@ form.addEventListener("submit", async (e) => {
     <p>Калории: ${calories.toFixed(0)} ккал</p>
     <p>Белки: ${protein.toFixed(1)} г, Жиры: ${fat.toFixed(1)} г, Углеводы: ${carbs.toFixed(1)} г</p>
   `;
+  // Добавим потребности по другим нутриентам из nutrient_needs.json
+fetch('nutrient_needs.json')
+  .then(response => response.json())
+  .then(nutrients => {
+    const personalNeeds = nutrients.map(n => {
+      let need;
+
+      if (n.multiplier_type === "weight") {
+        need = n.base_value * weight;
+      } else if (n.multiplier_type === "age") {
+        const group = age < 51 ? "19-50" : "51+";
+        need = n.base_values[gender][group];
+      } else {
+        need = n.base_value;
+      }
+
+      return {
+        name: n.name,
+        category: n.category,
+        unit: n.unit,
+        amount: need
+      };
+    });
+
+    resultsDiv.innerHTML += `
+      <h3>Потребности в нутриентах 
+        <span style="font-weight: normal; font-size: 0.9em;">
+          (по WHO/FAO/UNU (2007), WHO/FAO (2010), US DRI (NASEM))
+        </span>
+      </h3>
+      <ul>
+        ${personalNeeds.map(n => `<li>${n.name}: ${n.amount.toFixed(1)} ${n.unit}</li>`).join("")}
+      </ul>
+    `;
+  });
+
 
   await fetchFoods("protein");
 });
