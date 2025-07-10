@@ -1,3 +1,14 @@
+const nutrientTranslations = {
+  "protein": "Белки",
+  "iron": "Железо",
+  "vitamin D": "Витамин D",
+  "alpha-linolenic acid": "Альфа-линоленовая кислота (ALA)",
+  "linoleic acid": "Линолевая кислота (LA)",
+  "eicosapentaenoic acid": "Эйкозапентаеновая кислота (EPA)",
+  "docosahexaenoic acid": "Докозагексаеновая кислота (DHA)"
+};
+
+
 const form = document.getElementById("form");
 const resultsDiv = document.getElementById("results");
 const productsDiv = document.getElementById("products");
@@ -17,7 +28,9 @@ form.addEventListener("submit", async (e) => {
     ? 10 * weight + 6.25 * height - 5 * age + 5
     : 10 * weight + 6.25 * height - 5 * age - 161;
 
-  const calories = bmr * 1.5; // умеренная активность
+  const activityFactor = parseFloat(document.getElementById("activity").value);
+const calories = bmr * activityFactor;
+
   const protein = (calories * 0.30) / 4;
   const fat = (calories * 0.30) / 9;
   const carbs = (calories * 0.40) / 4;
@@ -30,6 +43,18 @@ form.addEventListener("submit", async (e) => {
 
   await fetchFoodsForNutrients();
 });
+
+const minProtein = weight * 0.8;
+const minFat = weight * 1.0;
+const minCarbs = calories / 10;
+
+resultsDiv.innerHTML += `
+  <h3>Минимальные потребности в нутриентах (по WHO/FAO/UNU (2007), WHO/FAO (2010), US DRI (NASEM))</h3>
+  <p>Белки: ${minProtein.toFixed(1)} г</p>
+  <p>Жиры: ${minFat.toFixed(1)} г</p>
+  <p>Углеводы: ${minCarbs.toFixed(1)} г</p>
+`;
+
 
 // 🔄 Новый вариант запроса по ключевым нутриентам
 async function fetchFoodsForNutrients() {
@@ -54,7 +79,8 @@ async function fetchFoodsForNutrients() {
       const data = await response.json();
 
       if (data.foods && data.foods.length > 0) {
-        html += `<li><strong>${nutrient.toUpperCase()}</strong>:<ul>`;
+        const translated = nutrientTranslations[nutrient] || nutrient;
+html += `<li><strong>${translated}</strong>:<ul>`;
         data.foods.forEach(food => {
           html += `<li>${food.description}</li>`;
         });
