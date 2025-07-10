@@ -80,7 +80,7 @@ async function fetchFoodsForNutrients() {
 
       if (data.foods && data.foods.length > 0) {
         const translated = nutrientTranslations[nutrient] || nutrient;
-html += `<li><strong>${translated}</strong>:<ul>`;
+        html += `<li><strong>${translated}</strong>:<ul>`;
         data.foods.forEach(food => {
           html += `<li>${food.description}</li>`;
         });
