@@ -1,78 +1,78 @@
-const apiKey = "Ou0O8bfUG3gscBUflI8yd2zoxYphrbVkppQVBruf";
-
-document.getElementById("queryForm").addEventListener("submit", async (e) => {
+document.getElementById("searchForm").addEventListener("submit", async function (e) {
   e.preventDefault();
 
-  const nutrientInput = document.getElementById("nutrientInput").value.trim().toLowerCase();
-  const output = document.getElementById("output");
-  output.innerHTML = `<h2>Результаты для: ${nutrientInput}</h2>`;
+  const nutrientInput = document.getElementById("nutrient").value.trim();
+  const resultsDiv = document.getElementById("results");
+  const API_KEY = "Ou0O8bfUG3gscBUflI8yd2zoxYphrbVkppQVBruf"; // 🔁 Вставь сюда свой API-ключ от USDA FDC
 
-  // 1. Получаем суточную потребность (заглушка — позже свяжем с JSON)
-  const dailyNeeds = {
-    "protein": { value: 60, unit: "г", source: "WHO/FAO/UNU (2007)" },
-    "iron": { value: 18, unit: "мг", source: "NASEM" },
-    // добавь другие нутриенты здесь
-  };
-
-  const norm = dailyNeeds[nutrientInput];
-  if (norm) {
-    output.innerHTML += `<p>Суточная потребность: ${norm.value} ${norm.unit} (${norm.source})</p>`;
-  } else {
-    output.innerHTML += `<p>Суточная потребность: нет данных</p>`;
+  if (!nutrientInput) {
+    resultsDiv.innerHTML = "<p>Введите название нутриента.</p>";
+    return;
   }
 
-  // 2. Ищем продукты по nutrientInput
-  const searchUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(nutrientInput)}&pageSize=3&api_key=${apiKey}`;
+  resultsDiv.innerHTML = "<p>Загрузка...</p>";
 
   try {
-    const searchRes = await fetch(searchUrl);
-    const searchData = await searchRes.json();
+    let html = `<h2>Результаты для: ${nutrientInput}</h2>`;
+
+    // Суточные потребности (временно "зашиты")
+    const recommendedValues = {
+      "protein": "60 г (WHO/FAO/UNU (2007))",
+      "iron": "18 мг (US DRI)",
+      "vitamin d": "15 мкг (US DRI)",
+      "alpha-linolenic acid": "1.6 г (FAO/WHO)",
+      "linoleic acid": "17 г (FAO/WHO)",
+      "eicosapentaenoic acid": "0.25 г (FAO)",
+      "docosahexaenoic acid": "0.25 г (FAO)"
+    };
+
+    const nutrientKey = nutrientInput.toLowerCase();
+    const rec = recommendedValues[nutrientKey] || "Нет данных";
+    html += `<p><strong>Суточная потребность:</strong> ${rec}</p>`;
+
+    // Поиск продуктов
+    const searchUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(nutrientInput)}&pageSize=3&api_key=${API_KEY}`;
+    const searchResponse = await fetch(searchUrl);
+    const searchData = await searchResponse.json();
 
     if (!searchData.foods || searchData.foods.length === 0) {
-      output.innerHTML += "<p>Продукты не найдены.</p>";
+      resultsDiv.innerHTML = html + "<p>Нет продуктов по этому нутриенту.</p>";
       return;
     }
 
-    output.innerHTML += "<ol>";
+    html += "<ul>";
 
     for (const food of searchData.foods) {
-      const foodId = food.fdcId;
-      const foodDetailsUrl = `https://api.nal.usda.gov/fdc/v1/food/${foodId}?api_key=${apiKey}`;
-      const detailRes = await fetch(foodDetailsUrl);
-      const detailData = await detailRes.json();
-    
+      const detailsUrl = `https://api.nal.usda.gov/fdc/v1/food/${food.fdcId}?api_key=${API_KEY}`;
+      const detailsResponse = await fetch(detailsUrl);
+      const foodDetails = await detailsResponse.json();
+
       let foundNutrient = null;
 
-if (
-  foodDetails.foodNutrients &&
-  Array.isArray(foodDetails.foodNutrients)
-) {
-  foundNutrient = foodDetails.foodNutrients.find(n =>
-    typeof n?.nutrientName === "string" &&
-    n.nutrientName.toLowerCase().includes(nutrientKey.toLowerCase())
-  );
-}
+      if (
+        foodDetails?.foodNutrients &&
+        Array.isArray(foodDetails.foodNutrients)
+      ) {
+        foundNutrient = foodDetails.foodNutrients.find(n =>
+          typeof n?.nutrientName === "string" &&
+          n.nutrientName.toLowerCase().includes(nutrientKey)
+        );
+      }
 
-if (foundNutrient) {
-  const amount = foundNutrient.amount;
-  const unit = foundNutrient.unitName;
-  html += `<li>${food.description} – ${amount} ${unit}</li>`;
-} else {
-  html += `<li>${food.description} – нет данных</li>`;
-}
-
-
-
-      const amount = foundNutrient
-        ? `${foundNutrient.value} ${foundNutrient.unitName}`
-        : "нет данных";
-
-      output.innerHTML += `<li><strong>${food.description}</strong><br>Содержание: ${amount}</li>`;
+      if (foundNutrient) {
+        const amount = foundNutrient.amount;
+        const unit = foundNutrient.unitName;
+        html += `<li>${food.description} – ${amount} ${unit}</li>`;
+      } else {
+        html += `<li>${food.description} – нет данных</li>`;
+      }
     }
 
-    output.innerHTML += "</ol>";
+    html += "</ul>";
+    resultsDiv.innerHTML = html;
+
   } catch (error) {
     console.error("❌ Ошибка запроса:", error);
-    output.innerHTML += `<p>Ошибка при загрузке данных</p>`;
+    resultsDiv.innerHTML = "<p>Ошибка при загрузке данных</p>";
   }
 });
