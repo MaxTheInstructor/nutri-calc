@@ -55,6 +55,16 @@ async function fetchAndDisplayRecommendedFoods() {
     { name: "Белок", english: "protein", dailyNeed: 50 },
     { name: "Жиры", english: "fat", dailyNeed: 60 },
     { name: "Углеводы", english: "carbohydrate", dailyNeed: 210 },
+    { name: "Гистидин (аминокислота)", english: "histidine", dailyNeed: }
+    { name: "Изолейцин (аминокислота)", english: "isoleucine", dailyNeed: }
+    { name: "Лейцин (аминокислота)", english: "leucine", dailyNeed: }
+    { name: "Лизин (аминокислота)", english: "", dailyNeed: }
+    { name: "Метионин+цистеин (аминокислоты)", english: "", dailyNeed: }
+    { name: "Фенилаланин+Тирозин (аминокислоты)", english: "", dailyNeed: }
+    { name: "Треонин (аминокислота)", english: "", dailyNeed: }
+    { name: "Триптофан (аминокислота)", english: "", dailyNeed: }
+    { name: "Валин (аминокислота)", english: "", dailyNeed: }
+    { name: "Аргинин (аминокислота)", english: "", dailyNeed: }
     { name: "Железо", english: "iron", dailyNeed: 18 },
     { name: "Витамин D", english: "vitamin d", dailyNeed: 15 },
     { name: "Альфа-линоленовая кислота (ALA)", english: "alpha-linolenic acid", dailyNeed: 1.1 },
