@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const apiKey = "Ou0O8bfUG3gscBUflI8yd2zoxYphrbVkppQVBruf";
 
 document.getElementById("queryForm").addEventListener("submit", async (e) => {
