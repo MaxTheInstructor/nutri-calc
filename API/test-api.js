@@ -48,16 +48,17 @@ document.getElementById("queryForm").addEventListener("submit", async (e) => {
         Array.isArray(foodDetails.foodNutrients)
       ) {
         foundNutrient = foodDetails.foodNutrients.find(n =>
-          n?.nutrientName?.toLowerCase().includes(nutrientKey.toLowerCase())
+          typeof n?.nutrientName === "string" &&
+          n.nutrientName.toLowerCase().includes(nutrientKey.toLowerCase())
         );
       }
 
       if (foundNutrient) {
         const amount = foundNutrient.amount;
         const unit = foundNutrient.unitName;
-        html += `<li>${food.description} – ${amount} ${unit}</li>`;
+        html += `<li>${food.description} - ${amount} ${unit}</li>`;
       } else {
-        html += `<li>${food.description} – нет данных</li>`;
+        html += `<li>${food.description} - нет данных</li>`;
       }
 
 
