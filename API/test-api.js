@@ -43,23 +43,24 @@ document.getElementById("queryForm").addEventListener("submit", async (e) => {
     
       let foundNutrient = null;
 
-      if (
-        foodDetails.foodNutrients &&
-        Array.isArray(foodDetails.foodNutrients)
-      ) {
-        foundNutrient = foodDetails.foodNutrients.find(n =>
-          typeof n?.nutrientName === "string" &&
-          n.nutrientName.toLowerCase().includes(nutrientKey.toLowerCase())
-        );
-      }
+if (
+  foodDetails.foodNutrients &&
+  Array.isArray(foodDetails.foodNutrients)
+) {
+  foundNutrient = foodDetails.foodNutrients.find(n =>
+    typeof n?.nutrientName === "string" &&
+    n.nutrientName.toLowerCase().includes(nutrientKey.toLowerCase())
+  );
+}
 
-      if (foundNutrient) {
-        const amount = foundNutrient.amount;
-        const unit = foundNutrient.unitName;
-        html += `<li>${food.description} - ${amount} ${unit}</li>`;
-      } else {
-        html += `<li>${food.description} - нет данных</li>`;
-      }
+if (foundNutrient) {
+  const amount = foundNutrient.amount;
+  const unit = foundNutrient.unitName;
+  html += `<li>${food.description} – ${amount} ${unit}</li>`;
+} else {
+  html += `<li>${food.description} – нет данных</li>`;
+}
+
 
 
       const amount = foundNutrient
