@@ -40,10 +40,26 @@ document.getElementById("queryForm").addEventListener("submit", async (e) => {
       const foodDetailsUrl = `https://api.nal.usda.gov/fdc/v1/food/${foodId}?api_key=${apiKey}`;
       const detailRes = await fetch(foodDetailsUrl);
       const detailData = await detailRes.json();
+    
+      let foundNutrient = null;
 
-      const foundNutrient = detailData.foodNutrients.find(n =>
-        n.nutrientName.toLowerCase().includes(nutrientInput)
-      );
+      if (
+        foodDetails.foodNutrients &&
+        Array.isArray(foodDetails.foodNutrients)
+      ) {
+        foundNutrient = foodDetails.foodNutrients.find(n =>
+          n?.nutrientName?.toLowerCase().includes(nutrientKey.toLowerCase())
+        );
+      }
+
+      if (foundNutrient) {
+        const amount = foundNutrient.amount;
+        const unit = foundNutrient.unitName;
+        html += `<li>${food.description} – ${amount} ${unit}</li>`;
+      } else {
+        html += `<li>${food.description} – нет данных</li>`;
+      }
+
 
       const amount = foundNutrient
         ? `${foundNutrient.value} ${foundNutrient.unitName}`
