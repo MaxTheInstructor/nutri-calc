@@ -3,7 +3,7 @@ document.getElementById("searchForm").addEventListener("submit", async function 
 
   const nutrientInput = document.getElementById("nutrient").value.trim();
   const resultsDiv = document.getElementById("results");
-  const API_KEY = "YOUR_API_KEY"; // ← Вставь сюда свой ключ от FDC API
+  const API_KEY = "Ou0O8bfUG3gscBUflI8yd2zoxYphrbVkppQVBruf"; // ← Вставь сюда свой ключ от FDC API
 
   if (!nutrientInput) {
     resultsDiv.innerHTML = "<p>Введите название нутриента.</p>";
