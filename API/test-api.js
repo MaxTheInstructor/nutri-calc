@@ -3,7 +3,7 @@ document.getElementById("searchForm").addEventListener("submit", async function 
 
   const nutrientInput = document.getElementById("nutrient").value.trim();
   const resultsDiv = document.getElementById("results");
-  const API_KEY = "Ou0O8bfUG3gscBUflI8yd2zoxYphrbVkppQVBruf"; // 🔁 Вставь сюда свой API-ключ от USDA FDC
+  const API_KEY = "YOUR_API_KEY"; // ← Вставь сюда свой ключ от FDC API
 
   if (!nutrientInput) {
     resultsDiv.innerHTML = "<p>Введите название нутриента.</p>";
@@ -15,7 +15,7 @@ document.getElementById("searchForm").addEventListener("submit", async function 
   try {
     let html = `<h2>Результаты для: ${nutrientInput}</h2>`;
 
-    // Суточные потребности (временно "зашиты")
+    // 🔢 Мини-база суточных потребностей
     const recommendedValues = {
       "protein": "60 г (WHO/FAO/UNU (2007))",
       "iron": "18 мг (US DRI)",
@@ -30,7 +30,7 @@ document.getElementById("searchForm").addEventListener("submit", async function 
     const rec = recommendedValues[nutrientKey] || "Нет данных";
     html += `<p><strong>Суточная потребность:</strong> ${rec}</p>`;
 
-    // Поиск продуктов
+    // 🔍 Поиск продуктов
     const searchUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(nutrientInput)}&pageSize=3&api_key=${API_KEY}`;
     const searchResponse = await fetch(searchUrl);
     const searchData = await searchResponse.json();
@@ -49,10 +49,7 @@ document.getElementById("searchForm").addEventListener("submit", async function 
 
       let foundNutrient = null;
 
-      if (
-        foodDetails?.foodNutrients &&
-        Array.isArray(foodDetails.foodNutrients)
-      ) {
+      if (foodDetails?.foodNutrients && Array.isArray(foodDetails.foodNutrients)) {
         foundNutrient = foodDetails.foodNutrients.find(n =>
           typeof n?.nutrientName === "string" &&
           n.nutrientName.toLowerCase().includes(nutrientKey)
@@ -62,9 +59,9 @@ document.getElementById("searchForm").addEventListener("submit", async function 
       if (foundNutrient) {
         const amount = foundNutrient.amount;
         const unit = foundNutrient.unitName;
-        html += `<li>${food.description} – ${amount} ${unit}</li>`;
+        html += `<li>${food.description} — <strong>${amount} ${unit}</strong></li>`;
       } else {
-        html += `<li>${food.description} – нет данных</li>`;
+        html += `<li>${food.description} — <em>нет данных</em></li>`;
       }
     }
 

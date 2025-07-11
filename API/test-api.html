@@ -2,19 +2,19 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>API тест нутриента</title>
+  <title>Тест API по нутриенту</title>
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-  <h1>Тест запроса нутриента из API FDC</h1>
+  <h1>Поиск по нутриенту (тест API)</h1>
 
   <form id="searchForm">
-    <label>Введите нутриент (например, protein, iron):</label>
-    <input type="text" id="nutrient" placeholder="protein">
+    <label for="nutrient">Введите название нутриента (англ.):</label>
+    <input type="text" id="nutrient" placeholder="например: protein" required>
     <button type="submit">Найти</button>
   </form>
 
-  <div id="output"></div>
+  <div id="results"></div>
 
   <script src="test-api.js"></script>
 </body>
