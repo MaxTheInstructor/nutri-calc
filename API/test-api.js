@@ -1,3 +1,22 @@
+const targetNames = {
+  "protein": ["Protein", "Total protein", "Protein, total"],
+  "iron": ["Iron", "Iron, Fe"],
+  "vitamin d": ["Vitamin D", "Vitamin D (D2 + D3)", "Cholecalciferol"],
+  "alpha-linolenic acid": ["Alpha-linolenic acid", "18:3 n-3 c,c,c (ALA)"],
+  "linoleic acid": ["Linoleic acid", "18:2 n-6 c,c"],
+  "eicosapentaenoic acid": ["Eicosapentaenoic acid", "20:5 n-3 (EPA)"],
+  "docosahexaenoic acid": ["Docosahexaenoic acid", "22:6 n-3 (DHA)"]
+};
+
+const acceptableNames = targetNames[nutrientKey] || [nutrientKey];
+
+foundNutrient = foodDetails.foodNutrients.find(n =>
+  typeof n?.nutrientName === "string" &&
+  acceptableNames.some(target =>
+    n.nutrientName.toLowerCase().includes(target.toLowerCase())
+  )
+);
+
 document.getElementById("searchForm").addEventListener("submit", async function (e) {
   e.preventDefault();
 
@@ -48,30 +67,14 @@ document.getElementById("searchForm").addEventListener("submit", async function 
       const detailsResponse = await fetch(detailsUrl);
       const foodDetails = await detailsResponse.json();
 
+      console.log("Nutrients for:", food.description, foodDetails.foodNutrients);
+
       let foundNutrient = null;
 
       if (foodDetails?.foodNutrients && Array.isArray(foodDetails.foodNutrients)) {
         foundNutrient = foodDetails.foodNutrients.find(n =>
           typeof n?.nutrientName === "string" &&
-          const targetNames = {
-            "protein": ["Protein", "Total protein", "Protein, total"],
-            "iron": ["Iron", "Iron, Fe"],
-            "vitamin d": ["Vitamin D", "Vitamin D (D2 + D3)", "Cholecalciferol"],
-            "alpha-linolenic acid": ["Alpha-linolenic acid", "18:3 n-3 c,c,c (ALA)"],
-            "linoleic acid": ["Linoleic acid", "18:2 n-6 c,c"],
-            "eicosapentaenoic acid": ["Eicosapentaenoic acid", "20:5 n-3 (EPA)"],
-            "docosahexaenoic acid": ["Docosahexaenoic acid", "22:6 n-3 (DHA)"]
-          };
-          
-        const acceptableNames = targetNames[nutrientKey] || [nutrientKey];
-        
-        foundNutrient = foodDetails.foodNutrients.find(n =>
-            typeof n?.nutrientName === "string" &&
-            acceptableNames.some(target =>
-              n.nutrientName.toLowerCase().includes(target.toLowerCase())
-          )
-        );
-
+        n.nutrientName.toLowerCase().includes(nutrientKey)
         );
       }
 
