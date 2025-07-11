@@ -43,6 +43,8 @@ document.getElementById("searchForm").addEventListener("submit", async function 
     html += "<ul>";
 
     for (const food of searchData.foods) {
+      console.log("Nutrients for:", food.description, foodDetails.foodNutrients);
+
       const detailsUrl = `https://api.nal.usda.gov/fdc/v1/food/${food.fdcId}?api_key=${API_KEY}`;
       const detailsResponse = await fetch(detailsUrl);
       const foodDetails = await detailsResponse.json();
@@ -52,7 +54,25 @@ document.getElementById("searchForm").addEventListener("submit", async function 
       if (foodDetails?.foodNutrients && Array.isArray(foodDetails.foodNutrients)) {
         foundNutrient = foodDetails.foodNutrients.find(n =>
           typeof n?.nutrientName === "string" &&
-          n.nutrientName.toLowerCase().includes(nutrientKey)
+          const targetNames = {
+            "protein": ["Protein", "Total protein", "Protein, total"],
+            "iron": ["Iron", "Iron, Fe"],
+            "vitamin d": ["Vitamin D", "Vitamin D (D2 + D3)", "Cholecalciferol"],
+            "alpha-linolenic acid": ["Alpha-linolenic acid", "18:3 n-3 c,c,c (ALA)"],
+            "linoleic acid": ["Linoleic acid", "18:2 n-6 c,c"],
+            "eicosapentaenoic acid": ["Eicosapentaenoic acid", "20:5 n-3 (EPA)"],
+            "docosahexaenoic acid": ["Docosahexaenoic acid", "22:6 n-3 (DHA)"]
+          };
+          
+        const acceptableNames = targetNames[nutrientKey] || [nutrientKey];
+        
+        foundNutrient = foodDetails.foodNutrients.find(n =>
+            typeof n?.nutrientName === "string" &&
+            acceptableNames.some(target =>
+              n.nutrientName.toLowerCase().includes(target.toLowerCase())
+          )
+        );
+
         );
       }
 
