@@ -43,7 +43,6 @@ document.getElementById("searchForm").addEventListener("submit", async function 
     html += "<ul>";
 
     for (const food of searchData.foods) {
-      console.log("Nutrients for:", food.description, foodDetails.foodNutrients);
 
       const detailsUrl = `https://api.nal.usda.gov/fdc/v1/food/${food.fdcId}?api_key=${API_KEY}`;
       const detailsResponse = await fetch(detailsUrl);
